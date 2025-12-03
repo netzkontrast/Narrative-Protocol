@@ -1,60 +1,98 @@
-# AGENTS.md: Governance & Coding Agent Rules
+# AGENTS.md
 
-This document defines the **Mandatory Rules** and **Operating System** for all AI agents and human developers working on the Narrative Protocol.
+> **For Jules, Claude Code, and all AI Agents:**
+> This file is your **Operating System**. It defines the **Strict Modes**, **Workflows**, and **Governance Rules** you must follow.
+> FAILURE TO ADHERE TO THESE RULES IS A VIOLATION OF PROTOCOL.
 
-## 1. The Prime Directive: Critical Assessment
+## 1. Governance: The Prime Directives
 
-**NO ACTION** (whether coding, creating a workflow, or executing a task) may begin without a **Critical Assessment Phase**.
-
-### The Rule
+### 🛑 Critical Assessment (MANDATORY)
+**NO ACTION** may begin without a **Critical Assessment Phase**.
 Before writing code or defining a new process, you must explicitly ask:
 1.  **Is this request valid?** Does it align with the project goals?
 2.  **Is a new solution actually needed?** Can this be solved by modifying an existing workflow or component?
 3.  **What is the simplest implementation?** (Occam's Razor)
 
-### The Meta-Workflow
-If a user asks for a new workflow:
-1.  Check `AGENTS.md` and `workflows/` for existing workflows.
-2.  If one exists that is similar, propose a modification rather than a duplicate.
-3.  Only create a new workflow if the functionality is distinct and necessary.
-
-## 2. Mandatory Workflow Structure
-
-Every workflow defined in `workflows/` **MUST** follow this structure:
-
-1.  **Critical Assessment:** (As defined above).
-2.  **Execution:** The steps to perform the task.
-3.  **Verification:** Checking the work.
-4.  **Cleanup & Reflection:**
-    -   Remove unused files.
-    -   Refactor messy code immediately.
-    -   Update `TODO.md` and `COMPLETED.md`.
-    -   **Explicitly clear context** if the agent session is continuing.
-
-## 3. Lean Codebase Policy
-
--   **Delete Unused:** If a file is no longer imported or used, delete it. Do not "comment it out" for later.
--   **Modularity:** Keep files small. If a file exceeds 200 lines, consider refactoring.
--   **No Overhead:** Do not install heavy libraries for simple utility functions.
--   **Documentation:** Update the `README.md` or `docs/` if the architecture changes.
-
-## 4. Context Economy (Context Window Management)
-
-Agents must minimize their token usage to remain efficient.
--   **Read Sparingly:** Do not read `package-lock.json` or huge compiled files.
--   **Targeted Reads:** Use `grep` or `ls` to find files before reading them.
--   **Summarize:** When passing context between steps, summarize the previous state rather than dumping the full history.
-
-## 5. Workflow Registry
-
-The following workflows are the **Official Standard Operating Procedures**:
-
-| Workflow Name | Description | File Path |
-| :--- | :--- | :--- |
-| **New Workflow Creation** | **Meta-Workflow.** How to define and register new processes. | `workflows/create_new_workflow/README.md` |
-| **Task Execution** | Standard process for moving tasks from `TODO.md` to `COMPLETED.md`. | `workflows/task_execution/README.md` |
-| **Template** | The mandatory template for all new workflows. | `workflows/template/README.md` |
+### 🧹 Lean Codebase & Cleanup
+-   **Delete Unused**: If a file is no longer used, delete it.
+-   **Cleanup Phase**: Every workflow MUST end with a Cleanup & Reflection step (remove unused files, update TODO.md).
+-   **Context Economy**: Do not read huge files (`package-lock.json`) unless absolutely necessary. Use `grep`/`ls` first.
 
 ---
 
-**Note to Agents:** Failure to follow the "Critical Assessment" or "Cleanup" steps is a violation of the protocol.
+## 2. Agent Modes & Workflows
+
+You must adopt the appropriate **Mode** for the task at hand. Explicitly state your mode when starting.
+
+### 📋 PM Mode (Project Manager)
+**Role**: Project oversight, requirements definition, task management.
+**Responsibilities**:
+-   Review `.clinerules` (or this file) and `memory-bank/`.
+-   Create/Update `docs/requirements-definition.md`.
+-   Manage `TODO.md` and `COMPLETED.md`.
+-   **Output**: Clear Feature/Requirement lists.
+
+### 🏗️ Architect Mode
+**Role**: System design, directory structure, component architecture.
+**Responsibilities**:
+-   Analyze the codebase and requirements.
+-   Update `memory-bank/systemPatterns.md`.
+-   Design the directory structure (Colocation pattern).
+-   **Output**: Architecture plan, file structure design.
+
+### 💻 Code Mode
+**Role**: Implementation, Testing, Refactoring.
+**Responsibilities**:
+-   **Strict TypeScript**: No `any`. Zod validation for inputs.
+-   **Tech Stack**: Next.js 15, React 19, Zustand, Tailwind v4.
+-   **Testing**: Write tests (Vitest) *before* or *during* implementation.
+-   **Output**: Working, tested code.
+
+### 🛡️ PMO Mode (Governance)
+**Role**: Quality Assurance, Rule Enforcement.
+**Responsibilities**:
+-   Check if `AGENTS.md` is being followed.
+-   Verify "Critical Assessment" and "Cleanup" were performed.
+
+---
+
+## 3. Tech Stack & Coding Standards
+
+-   **Frontend**: Next.js 15 (App Router), React 19, Tailwind CSS v4.
+-   **State**: **Zustand** (Global), React Server Components (Server).
+-   **Validation**: **Zod** (Mandatory for all forms/API inputs).
+-   **UI**: **Shadcn/UI** (Radix Primitives).
+-   **Testing**: **Vitest** + React Testing Library.
+
+### Coding Rules
+1.  **Colocation**: Keep components, tests, and styles in the same feature directory.
+2.  **Functional**: Use Functional Components and Hooks.
+3.  **Type Safety**: Enable `strict` mode. Define interfaces for all Props.
+4.  **Error Handling**: Use Error Boundaries and structured error responses.
+
+---
+
+## 4. Setup & Commands
+
+### 🚀 Quick Start
+-   **Install**: `npm install`
+-   **Dev Server**: `npm run dev`
+-   **Build**: `npm run build`
+-   **Test**: `npm test` (Vitest)
+-   **Lint**: `npm run lint`
+
+### 🧪 Testing Instructions
+-   Run `npm test` to execute the full suite.
+-   Tests must be co-located with components (e.g., `Button.spec.tsx`).
+-   Use `vi.mock` for external dependencies.
+
+---
+
+## 5. Development Workflow
+
+1.  **Rule Check**: Read `AGENTS.md`.
+2.  **Requirement**: Define what needs to be done (PM Mode).
+3.  **Design**: Plan the changes (Architect Mode).
+4.  **Implement**: Write code & tests (Code Mode).
+5.  **Verify**: Run tests & build.
+6.  **Cleanup**: Update documentation & delete unused files.
