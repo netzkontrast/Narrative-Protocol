@@ -11,8 +11,8 @@ This repository is structured to be an ideal starting point for both **Human Dev
 -   **`docs/`**: Contains the technical core of the project.
     -   [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): The detailed technical specification and vision (Architecture, Stack, Data Model).
 -   **`workflows/`**: Operational protocols.
-    -   [`workflows/task_execution.md`](workflows/task_execution.md): How to complete tasks.
-    -   [`workflows/new_workflow_creation.md`](workflows/new_workflow_creation.md): How to define new processes.
+    -   [`workflows/task_execution/`](workflows/task_execution/README.md): How to complete tasks.
+    -   [`workflows/create_new_workflow/`](workflows/create_new_workflow/README.md): How to define new processes.
 -   **Root Files**:
     -   [`AGENTS.md`](AGENTS.md): **MANDATORY** reading. Defines the governance, rules, and "Operating System" for agents.
     -   [`TODO.md`](TODO.md): The active backlog of tasks.
@@ -25,7 +25,7 @@ This repository is structured to be an ideal starting point for both **Human Dev
 **Protocol:**
 1.  **Read `AGENTS.md`** immediately to understand the Rules of Engagement.
 2.  **Check `TODO.md`** for the next priority task.
-3.  **Follow `workflows/task_execution.md`** to execute the task.
+3.  **Follow `workflows/task_execution/README.md`** to execute the task.
     -   *Remember:* Always perform a **Critical Assessment** before starting.
     -   *Remember:* Always perform **Cleanup** before finishing.
 
