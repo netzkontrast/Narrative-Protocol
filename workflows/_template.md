@@ -10,7 +10,7 @@
     -   Verify understanding of requirements.
 2.  **Check Existing Solutions:**
     -   Search `workflows/` for similar processes.
-    -   Search `projects/<project>/docs/ARCHITECTURE.md` for existing components.
+    -   Search `docs/ARCHITECTURE.md` for existing components.
     -   *Decision Point:* Should we modify an existing solution or create a new one?
 3.  **Plan:**
     -   Define the steps for execution.

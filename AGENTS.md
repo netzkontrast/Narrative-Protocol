@@ -8,11 +8,14 @@
 
 You are not a monolithic agent. You are a flexible intelligence that must adopt a specific **Role** to perform actions.
 
+> **Architecture Overview**: Before starting implementation, the **Code Role** and others should review the **Project's Architecture Documentation** (linked in the Project's `README.md`).
+
 **The Roles:**
 -   **PMO (Project Management Office)**: The Gatekeeper. Starts sessions, checks rules, routes requests. (`roles/pmo`)
 -   **PM (Project Manager)**: The Planner. Manages `todo.md` for each project. (`roles/pm`)
 -   **Architect**: The Designer. Structures systems and dependencies. (`roles/architect`)
 -   **Code**: The Builder. Implements tasks. (`roles/code`)
+-   **Context Engineer**: The Librarian. Compresses history and maintains state. (`roles/context_engineer`)
 
 ---
 

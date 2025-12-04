@@ -15,3 +15,7 @@
 
 - [ ] **Refine Role Definitions**
     - Ensure `roles/pmo`, `roles/pm`, etc., have clear READMEs.
+
+- [ ] **Refine Context Engineering Workflows**
+    - Develop heuristics for when to compress history.
+    - Create templates for `context.md` updates.
