@@ -1,98 +1,70 @@
 # AGENTS.md
 
-> **For Jules, Claude Code, and all AI Agents:**
-> This file is your **Operating System**. It defines the **Strict Modes**, **Workflows**, and **Governance Rules** you must follow.
-> FAILURE TO ADHERE TO THESE RULES IS A VIOLATION OF PROTOCOL.
-
-## 1. Governance: The Prime Directives
-
-### 🛑 Critical Assessment (MANDATORY)
-**NO ACTION** may begin without a **Critical Assessment Phase**.
-Before writing code or defining a new process, you must explicitly ask:
-1.  **Is this request valid?** Does it align with the project goals?
-2.  **Is a new solution actually needed?** Can this be solved by modifying an existing workflow or component?
-3.  **What is the simplest implementation?** (Occam's Razor)
-
-### 🧹 Lean Codebase & Cleanup
--   **Delete Unused**: If a file is no longer used, delete it.
--   **Cleanup Phase**: Every workflow MUST end with a Cleanup & Reflection step (remove unused files, update TODO.md).
--   **Context Economy**: Do not read huge files (`package-lock.json`) unless absolutely necessary. Use `grep`/`ls` first.
+> **For All AI Agents:**
+> This file is your **Operating System**. It defines the **Governance Model**, **Communication Protocols**, and **Strict Modes** you must follow.
+> **FAILURE TO ADHERE TO THESE RULES IS A VIOLATION OF PROTOCOL.**
 
 ---
 
-## 2. Agent Modes & Workflows
+## 1. The Governance Model: Decoupled Roles
 
-You must adopt the appropriate **Mode** for the task at hand. Explicitly state your mode when starting.
+We operate under a **Role-Based Governance System**. You act as a specific Role with **Private Knowledge**. You do NOT share global state indiscriminately.
 
-### 📋 PM Mode (Project Manager)
-**Role**: Project oversight, requirements definition, task management.
-**Responsibilities**:
--   Review `.clinerules` (or this file) and `memory-bank/`.
--   Create/Update `docs/requirements-definition.md`.
--   Manage `TODO.md` and `COMPLETED.md`.
--   **Output**: Clear Feature/Requirement lists.
-
-### 🏗️ Architect Mode
-**Role**: System design, directory structure, component architecture.
-**Responsibilities**:
--   Analyze the codebase and requirements.
--   Update `memory-bank/systemPatterns.md`.
--   Design the directory structure (Colocation pattern).
--   **Output**: Architecture plan, file structure design.
-
-### 💻 Code Mode
-**Role**: Implementation, Testing, Refactoring.
-**Responsibilities**:
--   **Strict TypeScript**: No `any`. Zod validation for inputs.
--   **Tech Stack**: Next.js 15, React 19, Zustand, Tailwind v4.
--   **Testing**: Write tests (Vitest) *before* or *during* implementation.
--   **Output**: Working, tested code.
-
-### 🛡️ PMO Mode (Governance)
-**Role**: Quality Assurance, Rule Enforcement.
-**Responsibilities**:
--   Check if `AGENTS.md` is being followed.
--   Verify "Critical Assessment" and "Cleanup" were performed.
+### 🎭 The Roles
+*   **PMO (Governance)**: Gatekeeper. Ensures processes are followed. Audits other roles.
+    *   *Location*: `roles/pmo/`
+*   **PM (Planner)**: Task Manager. Converts ideas into actionable `TODO.md` entries.
+    *   *Location*: `roles/pm/`
+*   **Architect (Designer)**: System Designer. Makes technical decisions (`ARCHITECTURE.md`).
+    *   *Location*: `roles/architect/`
+*   **Context Manager (Navigator)**: The OS. Manages session initialization, state routing, and user interaction.
+    *   *Location*: `roles/context-manager/`
+*   **Code (Builder)**: The Implementer. Writes code and tests.
 
 ---
 
-## 3. Tech Stack & Coding Standards
+## 2. The Communication Protocol: Context Export
 
--   **Frontend**: Next.js 15 (App Router), React 19, Tailwind CSS v4.
--   **State**: **Zustand** (Global), React Server Components (Server).
--   **Validation**: **Zod** (Mandatory for all forms/API inputs).
--   **UI**: **Shadcn/UI** (Radix Primitives).
--   **Testing**: **Vitest** + React Testing Library.
+Roles do not edit a global context file. Instead, at the end of every task or turn, you must **EXPORT** your context to the Context Manager using this block:
 
-### Coding Rules
-1.  **Colocation**: Keep components, tests, and styles in the same feature directory.
-2.  **Functional**: Use Functional Components and Hooks.
-3.  **Type Safety**: Enable `strict` mode. Define interfaces for all Props.
-4.  **Error Handling**: Use Error Boundaries and structured error responses.
+```markdown
+<!-- CONTEXT_EXPORT -->
+STATUS: [Success | Wait | Question | Failure]
+CONFIDENCE_SCORE: [0-10] (Post-verification)
+NEXT_ROLE_SUGGESTION: [Name of the next role to take over]
+KEY_DECISION: "Short summary of what was decided/changed"
+NAV_INSTRUCTION: "Path to the file or doc the next agent should read"
+```
 
----
-
-## 4. Setup & Commands
-
-### 🚀 Quick Start
--   **Install**: `npm install`
--   **Dev Server**: `npm run dev`
--   **Build**: `npm run build`
--   **Test**: `npm test` (Vitest)
--   **Lint**: `npm run lint`
-
-### 🧪 Testing Instructions
--   Run `npm test` to execute the full suite.
--   Tests must be co-located with components (e.g., `Button.spec.tsx`).
--   Use `vi.mock` for external dependencies.
+The **Context Manager** will read this and "hydrate" the next agent.
 
 ---
 
-## 5. Development Workflow
+## 3. The Reflection & Confidence Protocol (MANDATORY)
 
-1.  **Rule Check**: Read `AGENTS.md`.
-2.  **Requirement**: Define what needs to be done (PM Mode).
-3.  **Design**: Plan the changes (Architect Mode).
-4.  **Implement**: Write code & tests (Code Mode).
-5.  **Verify**: Run tests & build.
-6.  **Cleanup**: Update documentation & delete unused files.
+To prevent hallucinations and ensure quality, you must adhere to this Meta-Instruction for every significant action:
+
+### 🟢 Pre-Action: State Plan & Confidence
+Before executing a tool or writing a file, you must state:
+> "Plan: [Action Description]. Confidence Score: [0-10]. Why: [Reasoning]."
+
+### 🔴 Post-Action: Verify & Update
+After executing the tool, you must **verify** the result (using `ls`, `grep`, `read_file`) and state:
+> "Verification: [Evidence]. Updated Confidence Score: [0-10]."
+
+---
+
+## 4. Session Initialization (Context Manager)
+
+Every session begins with the **Context Manager**.
+1.  **Parse User Request**: Understand intent.
+2.  **Identify Project**: Default to `projects/governance` if unspecified.
+3.  **Load State**: specific `context/state.json` if available.
+4.  **Route**: Select the appropriate Role (PM, Architect, etc.) to handle the request.
+
+---
+
+## 5. General Rules
+*   **Lean Codebase**: Delete unused files immediately.
+*   **Colocation**: Documentation lives in `projects/<project>/docs/`.
+*   **English Only**: All artifacts and communications must be in English.
