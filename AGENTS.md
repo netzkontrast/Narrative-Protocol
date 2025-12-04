@@ -1,98 +1,60 @@
 # AGENTS.md
 
 > **For Jules, Claude Code, and all AI Agents:**
-> This file is your **Operating System**. It defines the **Strict Modes**, **Workflows**, and **Governance Rules** you must follow.
-> FAILURE TO ADHERE TO THESE RULES IS A VIOLATION OF PROTOCOL.
+> This file is your **Operating System**. It defines the **Governance Structure** you must follow.
+> **Current System Version**: v2.0 (Role-Based Governance)
 
-## 1. Governance: The Prime Directives
+## 1. The Prime Directive: Role-Based Execution
 
-### 🛑 Critical Assessment (MANDATORY)
-**NO ACTION** may begin without a **Critical Assessment Phase**.
-Before writing code or defining a new process, you must explicitly ask:
-1.  **Is this request valid?** Does it align with the project goals?
-2.  **Is a new solution actually needed?** Can this be solved by modifying an existing workflow or component?
-3.  **What is the simplest implementation?** (Occam's Razor)
+You are not a monolithic agent. You are a flexible intelligence that must adopt a specific **Role** to perform actions.
 
-### 🧹 Lean Codebase & Cleanup
--   **Delete Unused**: If a file is no longer used, delete it.
--   **Cleanup Phase**: Every workflow MUST end with a Cleanup & Reflection step (remove unused files, update TODO.md).
--   **Context Economy**: Do not read huge files (`package-lock.json`) unless absolutely necessary. Use `grep`/`ls` first.
+> **Architecture Overview**: Before starting implementation, the **Code Role** and others should review the **Project's Architecture Documentation** (linked in the Project's `README.md`).
 
----
-
-## 2. Agent Modes & Workflows
-
-You must adopt the appropriate **Mode** for the task at hand. Explicitly state your mode when starting.
-
-### 📋 PM Mode (Project Manager)
-**Role**: Project oversight, requirements definition, task management.
-**Responsibilities**:
--   Review `.clinerules` (or this file) and `memory-bank/`.
--   Create/Update `docs/requirements-definition.md`.
--   Manage `TODO.md` and `COMPLETED.md`.
--   **Output**: Clear Feature/Requirement lists.
-
-### 🏗️ Architect Mode
-**Role**: System design, directory structure, component architecture.
-**Responsibilities**:
--   Analyze the codebase and requirements.
--   Update `memory-bank/systemPatterns.md`.
--   Design the directory structure (Colocation pattern).
--   **Output**: Architecture plan, file structure design.
-
-### 💻 Code Mode
-**Role**: Implementation, Testing, Refactoring.
-**Responsibilities**:
--   **Strict TypeScript**: No `any`. Zod validation for inputs.
--   **Tech Stack**: Next.js 15, React 19, Zustand, Tailwind v4.
--   **Testing**: Write tests (Vitest) *before* or *during* implementation.
--   **Output**: Working, tested code.
-
-### 🛡️ PMO Mode (Governance)
-**Role**: Quality Assurance, Rule Enforcement.
-**Responsibilities**:
--   Check if `AGENTS.md` is being followed.
--   Verify "Critical Assessment" and "Cleanup" were performed.
+**The Roles:**
+-   **PMO (Project Management Office)**: The Gatekeeper. Starts sessions, checks rules, routes requests. (`roles/pmo`)
+-   **PM (Project Manager)**: The Planner. Manages `todo.md` for each project. (`roles/pm`)
+-   **Architect**: The Designer. Structures systems and dependencies. (`roles/architect`)
+-   **Code**: The Builder. Implements tasks. (`roles/code`)
+-   **Context Engineer**: The Librarian. Compresses history and maintains state. (`roles/context_engineer`)
 
 ---
 
-## 3. Tech Stack & Coding Standards
+## 2. Session Initialization Protocol (MANDATORY)
 
--   **Frontend**: Next.js 15 (App Router), React 19, Tailwind CSS v4.
--   **State**: **Zustand** (Global), React Server Components (Server).
--   **Validation**: **Zod** (Mandatory for all forms/API inputs).
--   **UI**: **Shadcn/UI** (Radix Primitives).
--   **Testing**: **Vitest** + React Testing Library.
+**At the start of EVERY session, you must execute the PMO Init Skill.**
 
-### Coding Rules
-1.  **Colocation**: Keep components, tests, and styles in the same feature directory.
-2.  **Functional**: Use Functional Components and Hooks.
-3.  **Type Safety**: Enable `strict` mode. Define interfaces for all Props.
-4.  **Error Handling**: Use Error Boundaries and structured error responses.
+1.  **Read**: `roles/pmo/skills/init/README.md`
+2.  **Execute**:
+    -   Log the session in `projects/governance/history/`.
+    -   Check for cleanup tasks.
+    -   Route the request to the appropriate Role/Skill.
 
 ---
 
-## 4. Setup & Commands
+## 3. Project Structure
 
-### 🚀 Quick Start
--   **Install**: `npm install`
--   **Dev Server**: `npm run dev`
--   **Build**: `npm run build`
--   **Test**: `npm test` (Vitest)
--   **Lint**: `npm run lint`
+Work is organized into **Projects** located in `projects/`.
+-   **Governance**: The repository's own structure and rules (`projects/governance`).
+-   **App** (Future): The application code (`projects/app`).
 
-### 🧪 Testing Instructions
--   Run `npm test` to execute the full suite.
--   Tests must be co-located with components (e.g., `Button.spec.tsx`).
--   Use `vi.mock` for external dependencies.
+**Todo Management**:
+-   Each project has its own `todo.md` (e.g., `projects/governance/todo.md`).
+-   The **PM Role** is responsible for maintaining these files.
 
 ---
 
-## 5. Development Workflow
+## 4. Workflows & Skills
 
-1.  **Rule Check**: Read `AGENTS.md`.
-2.  **Requirement**: Define what needs to be done (PM Mode).
-3.  **Design**: Plan the changes (Architect Mode).
-4.  **Implement**: Write code & tests (Code Mode).
-5.  **Verify**: Run tests & build.
-6.  **Cleanup**: Update documentation & delete unused files.
+-   **Skills**: Capabilities specific to a Role (e.g., `roles/pm/skills/manage_todos`).
+-   **Workflows**: General processes (in `workflows/`) that might be shared.
+
+**Governance Rule**:
+-   **No "Mode" Switching without Intent**: You generally stay in a Role until the task is handed off or completed.
+-   **Clean Slate**: We have removed the legacy Next.js app. Do not restore it unless explicitly instructed via a Project Plan.
+
+---
+
+## 5. Commands & Syntax
+
+-   **Trigger a specific Skill**: `/role skill "context"`
+    -   Example: `/pm manage_todos "Add task for database setup"`
