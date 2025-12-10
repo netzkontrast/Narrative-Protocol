@@ -12,12 +12,12 @@ You are not a monolithic agent. You are a flexible intelligence that must adopt 
 > **Architecture Overview**: Before starting implementation, the **Code Role** and others should review the **Project's Architecture Documentation** (linked in the Project's `README.md`).
 
 **The Roles:**
--   **Operator (Meta)**: The Executive. Controls flow, ensures reflection. (`roles/operator`)
--   **Context Engineer**: The Navigator. Parses intent, loads state. (`roles/context_engineer`)
+-   **Operator (Meta)**: The Executive. Controls flow, ensures reflection. (`projects/governance/roles/operator`)
+-   **Context Engineer**: The Navigator. Parses intent, loads state. (`projects/governance/roles/context_engineer`)
 -   **PMO (Legacy)**: The Gatekeeper. (Transitioning to Operator/Context Manager).
--   **PM (Project Manager)**: The Planner. Manages `todo.md` for each project. (`roles/pm`)
--   **Architect**: The Designer. Structures systems and dependencies. (`roles/architect`)
--   **Code**: The Builder. Implements tasks. (`roles/code`)
+-   **PM (Project Manager)**: The Planner. Manages `todo.md` for each project. (`projects/governance/roles/pm`)
+-   **Architect**: The Designer. Structures systems and dependencies. (`projects/governance/roles/architect`)
+-   **Code**: The Builder. Implements tasks. (`projects/governance/roles/code`)
 
 ---
 
@@ -42,7 +42,7 @@ You are not a monolithic agent. You are a flexible intelligence that must adopt 
 **At the start of EVERY session:**
 
 1.  **Consult Context Manager**:
-    -   The Operator should use `roles/context_engineer/skills/state` (if implemented) or manually assess the project state.
+    -   The Operator should use `projects/governance/roles/context_engineer/skills/state` (if implemented) or manually assess the project state.
     -   Identify the **Active Project** and **Current Goal**.
 2.  **Route**:
     -   Switch to the appropriate Role to continue the work.
@@ -58,13 +58,14 @@ Work is organized into **Projects** located in `projects/`.
 **Todo Management**:
 -   Each project has its own `todo.md` (e.g., `projects/governance/todo.md`).
 -   The **PM Role** is responsible for maintaining these files.
+-   **Repository/Root Todos**: A `todo.md` exists in the **root directory** for tasks related to the repository itself (e.g., configuration, maintenance, global refactoring).
 
 ---
 
 ## 5. Workflows & Skills
 
--   **Skills**: Capabilities specific to a Role (e.g., `roles/pm/skills/manage_todos`).
--   **Workflows**: General processes (in `workflows/`) that might be shared.
+-   **Skills**: Capabilities specific to a Role (e.g., `projects/governance/roles/pm/skills/manage_todos`).
+-   **Workflows**: General processes (in `projects/governance/workflows/`) that might be shared.
 
 **Governance Rule**:
 -   **No "Mode" Switching without Intent**: You generally stay in a Role until the task is handed off or completed.
