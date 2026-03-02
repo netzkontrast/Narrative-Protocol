@@ -1,0 +1,46 @@
+name: Claude Code Review
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  # Job 1: Reagiert auf @claude Mentions in PR-Kommentaren
+  claude-assist:
+    if: >
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+  # Job 2: Automatisches Review bei jedem PR
+  auto-review:
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Überprüfe diesen PR nach folgenden Kriterien:
+            1. TypeScript Strict-Mode Compliance
+            2. Performance und Bundle-Size Auswirkungen
+            3. Sicherheitsprobleme (XSS, Injection, Auth-Bypass)
+            4. Fehlende Tests für neuen Code
+            5. Konsistenz mit dem Projekt-Stil (siehe CLAUDE.md)
+            Fasse die Ergebnisse als strukturiertes Review zusammen.
+          claude_args: "--max-turns 5"
