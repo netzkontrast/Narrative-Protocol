@@ -17,15 +17,15 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Vercel Environment laden
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=preview --token="${{ secrets.VERCEL_TOKEN }}"
 
       - name: Projekt bauen
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --token="${{ secrets.VERCEL_TOKEN }}"
 
       - name: Preview deployen
         id: deploy
         run: |
-          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          url=$(vercel deploy --prebuilt --token="${{ secrets.VERCEL_TOKEN }}")
           echo "url=$url" >> $GITHUB_OUTPUT
 
       - name: Preview-URL als PR-Kommentar
