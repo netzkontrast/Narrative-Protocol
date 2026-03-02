@@ -1,0 +1,30 @@
+name: Vercel Production
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-production:
+    name: Production Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vercel CLI installieren
+        run: npm install --global vercel@latest
+
+      - name: Vercel Environment laden
+        if: ${{ env.VERCEL_TOKEN != '' }}
+        run: vercel pull --yes --environment=production --token="${{ secrets.VERCEL_TOKEN }}"
+
+      - name: Produktions-Build
+        if: ${{ env.VERCEL_TOKEN != '' }}
+        run: vercel build --prod --token="${{ secrets.VERCEL_TOKEN }}"
+
+      - name: Produktions-Deployment
+        if: ${{ env.VERCEL_TOKEN != '' }}
+        run: vercel deploy --prebuilt --prod --token="${{ secrets.VERCEL_TOKEN }}"

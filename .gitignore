@@ -44,3 +44,29 @@ yarn-error.log*
 next-env.d.ts
 
 *storybook.log
+
+# Claude Code persönliche Dateien
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Environment
+.env
+.env.local
+.env.production.local
+
+# Next.js
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Vercel
+.vercel/
+
+# Coverage
+coverage/
+
+# IDE
+.vscode/
+.idea/
